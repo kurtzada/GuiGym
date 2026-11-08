@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
-import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, CircleAlert, ClipboardList, CloudOff, Droplets, Dumbbell, FileUp, Headphones, HeartPulse, ListFilter, LockKeyhole, Medal, Music2, RotateCw, ShieldCheck, TrendingUp, Weight } from 'lucide-react'
+import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, CircleAlert, ClipboardList, CloudOff, Droplets, Dumbbell, FileUp, Headphones, HeartPulse, ListFilter, LockKeyhole, Medal, Music2, RotateCw, ShieldCheck, TrendingUp } from 'lucide-react'
 import { Navigation } from './components/Navigation'
 import { StatCard } from './components/StatCard'
 import { nextTrainingArtwork } from './originalArtwork'
