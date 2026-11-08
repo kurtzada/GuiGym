@@ -1,22 +1,25 @@
-# GuiGym V8 — Evolução & Performance
+# GuiGym V11 — Academy
 
-App de treino para hipertrofia com interface premium preta e vermelha, funcional em celular e desktop.
+Aplicativo pessoal de treino para hipertrofia, com identidade premium preta e vermelha.
 
-## Novidades desta atualização
-- **Peito + Ombro + Bíceps** como primeiro treino; costas + posterior + tríceps como segundo.
-- **Editor de treinos**: título, músculos, foco, séries, exercícios, repetições, dicas e ordem.
-- **Meus treinos** e **Sugestões**: ABC personalizado, ABC low volume, Upper / Lower e Push / Pull / Legs.
-- **Fila inteligente**: uma falta não pula o treino. É possível reordenar a fila mantendo o próximo treino pendente; trocar a divisão exige confirmação.
-- **Sons opcionais** e **animações** para série concluída, fim do descanso, recordes e hidratação, com volume e estilo.
-- Histórico de séries, cargas, desafios, meta de água, baixo volume e backup permanecem.
+## Novidades V11
+- **GuiGym Academy durante o treino:** músculos principais e auxiliares, dicas de execução e revisão de memória sem interromper as séries.
+- **Modo Foco** com um exercício por vez.
+- **Quiz opcional durante o descanso** e reforço ao finalizar o exercício.
+- **Narração opcional** usando a síntese de voz do navegador.
+- **Imagens de IA** integradas às capas e seções; conteúdos anatômicos esquemáticos.
 
-## Dados
-Os registros permanecem **somente no navegador** (localStorage `forgeDB`, por compatibilidade com as versões antigas). Seus treinos e históricos anteriores são mantidos quando os novos recursos entram em uso. Exporte um backup antes de trocar de aparelho ou limpar dados.
+## Também incluído
+- Fila inteligente: não pula treinos faltados.
+- Editor de treinos e divisões sugeridas.
+- Cronômetro e descanso maior configurável para pernas; low volume por sessão.
+- Hidratação diária, RIR, progressão sugerida de cargas, relatórios e recordes pessoais.
+- Backup JSON exportável e importável.
 
-## Site
-[GuiGym no GitHub Pages](https://kurtzada.github.io/GuiGym/)
+## Link público
+https://kurtzada.github.io/GuiGym/
 
-No GitHub Pages: **Settings → Pages → Deploy from a branch → main → /(root)**.
+## Dados e limites
+Os registros são guardados no armazenamento local do dispositivo/navegador (`forgeDB`). Não há sincronização automática entre aparelhos. Exporte backups regularmente. Algumas funções de narração/vibração dependem do aparelho.
 
-## Aviso
-Os modelos de treino são sugestões gerais, não substituem avaliação física individual. Ajuste volume, técnica e recuperação. Áudio depende de permissão/interação do navegador; em aparelhos com restrições, pode não tocar em segundo plano.
+A página publicada usa um HTML autocontido para evitar falhas de carregamento das imagens e scripts. O pacote ZIP da V11 contém também os arquivos modulares de desenvolvimento.
