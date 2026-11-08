@@ -172,7 +172,26 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
 #music .ggm-dock-setting small{margin-top:3px;color:#bcb1b8;font-size:11px;line-height:1.5}
 #music #ggm-dock-visibility{font-size:11px;max-width:100%;white-space:normal;line-height:1.4}
 @media(max-width:375px){#ggm-mini:not(.ggm-collapsed){right:6px!important;width:calc(100vw - 12px)!important;gap:3px!important;padding:5px!important}#ggm-mini #ggm-mini-prev,#ggm-mini #ggm-mini-next{min-width:28px!important;width:28px!important;flex-basis:28px!important}}
-</style></head>
+</style>
+<style id="gg-enhancements">
+.gg-icon{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;font-style:normal}
+.gg-icon svg{width:1em;height:1em;stroke-width:2.1;flex:none}
+.quick-icon svg{width:23px;height:23px}.focus-icon svg{width:20px;height:20px}
+.home-water-icon svg{width:29px;height:29px}.feature-icon svg{width:25px;height:25px}
+.gg-chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.gg-chart-card{min-width:0;border-color:#462b35}.gg-chart-card h3{margin:4px 0 5px;font-size:15px}
+.gg-chart-card p{font-size:11px;color:var(--muted);margin:0 0 12px;line-height:1.5}
+.gg-chart-area{height:210px;position:relative;min-width:0}
+.gg-chart-area canvas{width:100%!important;height:100%!important}
+.gg-chart-empty{display:grid;place-items:center;height:100%;min-height:150px;text-align:center;color:var(--muted);font-size:12px;padding:15px;border:1px dashed #54333c;border-radius:12px}
+.gg-load-chart .gg-chart-area{height:235px}.gg-chart-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;margin:6px 0 12px;flex-wrap:wrap}
+.gg-load-chart .history-item{margin-top:4px}
+@media(max-width:650px){.gg-chart-grid{grid-template-columns:1fr}.gg-chart-area{height:190px}.gg-load-chart .gg-chart-area{height:225px}}
+</style>
+<script src="./vendor/chart.umd.min.js"></script>
+<script src="./vendor/purify.min.js"></script>
+<script src="./vendor/lucide.min.js"></script>
+</head>
 <body>
 <div class="app">
 <header><div class="brand"><div class="logo"><svg viewBox="0 0 100 100" width="34" height="34" aria-label="GuiGym"><path d="M77 21A37 37 0 1 0 78 70V49H51" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M70 13L59 37h16L64 62 93 29H76L85 13" fill="currentColor"/></svg></div><div><h1>GuiGym</h1><small>EVOLUÇÃO & PERFORMANCE</small></div></div><div class="header-right"><span class="version-chip" style="align-self:center">V11.1 · PRÉVIA</span><button class="iconbtn" onclick="exportData()" title="Exportar backup">⇧</button><button class="iconbtn" onclick="document.getElementById('importFile').click()" title="Importar backup">⇩</button><input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)"></div></header>
@@ -184,8 +203,8 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
    <div class="cover-topline"><span>SEU CENTRO DE PERFORMANCE</span><span class="cover-date" id="today"></span></div>
    <h2><span id="greetingWord">Bom dia</span>,<br><strong>Guilherme <span class="crown">♛</span></strong></h2>
    <div class="cover-focus">
-    <div><span class="focus-icon">◎</span><small>FOCO ATUAL</small><b>Hipertrofia</b></div>
-    <div><span class="focus-icon">▦</span><small>PLANO ATUAL</small><b>Ciclo A</b></div>
+    <div><span class="focus-icon gg-icon"><i data-lucide="target">◎</i></span><small>FOCO ATUAL</small><b>Hipertrofia</b></div>
+    <div><span class="focus-icon gg-icon"><i data-lucide="clipboard-list">▦</i></span><small>PLANO ATUAL</small><b>Ciclo A</b></div>
    </div>
    <div class="cover-week"><div class="weekly" id="weekStrip"></div><p class="tiny muted" id="weekSummary"></p></div>
   </div>
@@ -206,10 +225,10 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
  </div>
  <div class="section-head"><h3>Atalhos</h3><span class="badge-red">ACESSO RÁPIDO</span></div>
  <div class="quick-grid">
-  <button class="quick-action" onclick="showView('water')"><span class="quick-icon">◉</span><b>Hidratação</b><small>Registrar água</small></button>
-  <button class="quick-action" onclick="showView('commitment')"><span class="quick-icon">◈</span><b>Compromisso</b><small>Faltas e desafios</small></button>
-  <button class="quick-action" onclick="showView('progress')"><span class="quick-icon">♜</span><b>Recordes</b><small>Cargas e evolução</small></button>
-  <button class="quick-action" onclick="showView('library')"><span class="quick-icon">▤</span><b>Biblioteca</b><small>Exercícios</small></button>
+  <button class="quick-action" onclick="showView('water')"><span class="quick-icon gg-icon"><i data-lucide="droplets">◉</i></span><b>Hidratação</b><small>Registrar água</small></button>
+  <button class="quick-action" onclick="showView('commitment')"><span class="quick-icon gg-icon"><i data-lucide="calendar-check-2">◈</i></span><b>Compromisso</b><small>Faltas e desafios</small></button>
+  <button class="quick-action" onclick="showView('progress')"><span class="quick-icon gg-icon"><i data-lucide="trophy">♜</i></span><b>Recordes</b><small>Cargas e evolução</small></button>
+  <button class="quick-action" onclick="showView('library')"><span class="quick-icon gg-icon"><i data-lucide="book-open">▤</i></span><b>Biblioteca</b><small>Exercícios</small></button>
  </div>
  <div class="section-head"><h3>Hidratação de hoje</h3><button class="textbtn" onclick="showView('water')">Ver diário →</button></div>
  <div class="card home-water-card"><div class="utility-row" style="justify-content:space-between"><div><div class="eyebrow">ÁGUA REGISTRADA</div><div class="stat-value" id="homeWaterValue">0 ml</div><div class="tiny muted" id="homeWaterTarget">Meta: 2.500 ml</div></div><div class="home-water-icon">◉</div></div><div class="progress"><span id="homeWaterBar" style="width:0%"></span></div><div class="quick-water-actions"><button class="btn primary" onclick="addWater(250)">💧 +250 ml</button><button class="btn" onclick="addWater(500)">＋ 500 ml</button><button class="btn" onclick="showView('water')">Diário →</button></div></div>
@@ -258,6 +277,11 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
  <div class="hero"><div><div class="eyebrow">Dados que mostram resultado</div><h2>Sua evolução</h2><p>Cargas, séries e resultados em um só lugar.</p></div></div>
  <div class="card muscle-report"><div class="report-heading"><div><div class="eyebrow">RELATÓRIO MUSCULAR</div><h3>Séries por músculo</h3><p class="tiny muted">Volume registrado, não uma prescrição.</p></div><select id="muscleWeek" onchange="renderMuscleReport()"><option value="current">Esta semana</option><option value="previous">Semana passada</option></select></div><div id="muscleReportBars"></div><p class="tiny muted" id="muscleReportFoot">Registre treinos para comparar as semanas.</p></div>
  <div class="card" style="margin-top:14px"><div class="section-head" style="margin-top:0"><h3>Cargas por exercício</h3><select id="exerciseSelect" onchange="renderProgress()" style="background:#10131e;color:white;border:1px solid var(--line);border-radius:9px;padding:8px;max-width:48%"></select></div><div id="loadChart" class="empty">Ainda sem registros.</div></div>
+ <div class="gg-chart-grid" aria-label="Gráficos de evolução">
+  <div class="card gg-chart-card"><div class="eyebrow">VOLUME SEMANAL</div><h3>Séries registradas</h3><p>Total de séries concluídas em cada semana.</p><div id="volumeChart" class="gg-chart-area"></div></div>
+  <div class="card gg-chart-card"><div class="eyebrow">FREQUÊNCIA</div><h3>Treinos por semana</h3><p>Sessões registradas, incluindo as parciais.</p><div id="frequencyChart" class="gg-chart-area"></div></div>
+  <div class="card gg-chart-card"><div class="eyebrow">PROGRESSO CORPORAL</div><h3>Evolução do peso</h3><p>Somente as medições que você salvou no GuiGym.</p><div id="bodyChart" class="gg-chart-area"></div></div>
+ </div>
  <div class="section-head"><h3>Seus recordes (PRs)</h3><span class="tiny muted">Melhor carga por exercício</span></div><div class="card" id="prList"><div class="empty">Registre cargas para aparecerem aqui.</div></div>
  <div class="section-head"><h3>Metas</h3></div><div class="card"><div class="goal-form"><div><label for="goalType">Meta principal</label><select id="goalType"><option value="weight">Peso corporal (kg)</option><option value="sessions">Treinos concluídos</option></select></div><div><label for="goalTarget">Objetivo</label><input id="goalTarget" type="number" min="1" step=".1" placeholder="Ex.: 76"></div><div><label for="cycleWeeks">Duração de avaliação</label><select id="cycleWeeks"><option value="8">8 semanas</option><option value="12">12 semanas</option><option value="16">16 semanas</option></select></div><div style="display:flex;align-items:end"><button class="btn primary" onclick="saveGoal()" style="width:100%">Salvar meta</button></div></div><div id="goalStatus" style="margin-top:14px"></div></div>
  <div class="section-head"><h3>Medidas corporais</h3><span class="tiny muted">Atualize quando quiser</span></div>
@@ -554,9 +578,22 @@ function muscleOf(name,plan){const n=String(name||'').toLowerCase();if(/panturri
 function monday(d){let n=new Date(d);n.setHours(0,0,0,0);n.setDate(n.getDate()-((n.getDay()+6)%7));return n}
 function weeklyMuscles(offset=0){let start=monday(new Date());start.setDate(start.getDate()-offset*7);let end=new Date(start);end.setDate(end.getDate()+7);let total=Object.fromEntries(MUSCLES.map(m=>[m,0]));for(let l of db.logs){let date=new Date(l.date);if(date<start||date>=end)continue;let p=defaultPlan.find(p=>p.id===l.planId);for(let e of l.entries||[]){let m=e.muscle||muscleOf(e.name,{tags:l.planTags||p?.tags||[]});total[m]=(total[m]||0)+(Number(e.setsDone)||0)}}return total}
 function renderMuscleReport(){let el=document.getElementById('muscleReportBars');if(!el)return;let offset=document.getElementById('muscleWeek')?.value==='previous'?1:0,now=weeklyMuscles(offset),prev=weeklyMuscles(offset+1);let max=Math.max(1,...Object.values(now));let lines=MUSCLES.map(m=>{let n=now[m]||0,p=prev[m]||0,diff=n-p;return `<div class="muscle-bar-row"><div class="muscle-row-title"><strong>${m}</strong><span>${n} séries ${p?`<small class="${diff>=0?'positive':'negative'}">${diff>=0?'+':''}${diff} vs. anterior</small>`:''}</span></div><div class="muscle-rail"><span style="width:${Math.round(n/max*100)}%"></span></div></div>`}).join('');el.innerHTML=lines;let sum=Object.values(now).reduce((a,b)=>a+b,0);document.getElementById('muscleReportFoot').textContent=sum?`${sum} séries registradas neste período · comparação descritiva, não meta de volume.`:'Nenhuma série registrada neste período. Conclua um treino para preencher o relatório.'}
-function renderProgress(){renderMuscleReport();let sel=document.getElementById('exerciseSelect');let names=[...new Set(db.logs.flatMap(l=>l.entries.map(e=>e.name)))];let old=sel.value;sel.innerHTML='<option value="">Selecione exercício</option>'+names.map(n=>`<option>${n}</option>`).join('');if(names.includes(old))sel.value=old;drawChart(sel.value);document.getElementById('historyList').innerHTML=db.logs.length?db.logs.slice().reverse().slice(0,12).map(l=>`<div class="history-item"><div><strong>${l.planName}</strong><span class="muted">${new Date(l.date).toLocaleDateString('pt-BR')}</span></div><div style="text-align:right">${l.entries.length} exercícios<br><span class="muted">${l.entries.filter(e=>e.done).length} concluídos</span></div></div>`).join(''):'<div class="empty">Seus treinos finalizados aparecerão aqui.</div>';let m=db.measures[db.measures.length-1];if(m){['Weight','Waist','Chest','Arm','Thigh','Hip'].forEach(k=>{let el=document.getElementById('m'+k);if(m[k.toLowerCase()]!==undefined)el.value=m[k.toLowerCase()]})}renderPRs();renderGoal();renderPhotos()}
-function drawChart(name){let box=document.getElementById('loadChart');if(!name){box.className='empty';box.textContent='Selecione um exercício para visualizar a evolução da carga.';return}let pts=db.logs.flatMap(l=>l.entries.filter(e=>e.name===name&&e.weight>0).map(e=>({date:new Date(l.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),w:e.weight})));if(!pts.length){box.className='empty';box.textContent='Sem registros de carga para este exercício.';return}let max=Math.max(...pts.map(p=>p.w))*1.15,min=Math.min(0,...pts.map(p=>p.w));let coords=pts.map((p,i)=>`${20+i*(320/Math.max(1,pts.length-1))},${150-(p.w-min)/(max-min||1)*120}`).join(' ');box.className='';box.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${name}</b><span class="tiny muted">Última: ${fmt(pts.at(-1).w)} kg</span></div><svg viewBox="0 0 360 180" class="chart" preserveAspectRatio="none"><line x1="15" y1="150" x2="345" y2="150" stroke="#34394b"/><polyline points="${coords}" fill="none" stroke="#ff3649" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((p,i)=>{let x=20+i*(320/Math.max(1,pts.length-1)),y=150-(p.w-min)/(max-min||1)*120;return `<circle cx="${x}" cy="${y}" r="4" fill="#55d6a0"/>`}).join('')}</svg><div style="display:flex;justify-content:space-between" class="tiny muted"><span>${pts[0].date}</span><span>${pts.at(-1).date}</span></div><div class="history-item"><span>Melhor carga registrada</span><b>${fmt(Math.max(...pts.map(p=>p.w)))} kg</b></div>`}
-function renderMiniProgress(){let best={};db.logs.forEach(l=>l.entries.forEach(e=>{if(e.weight>0)best[e.name]=Math.max(best[e.name]||0,e.weight)}));let arr=Object.entries(best).sort((a,b)=>b[1]-a[1]).slice(0,4);document.getElementById('miniProgress').innerHTML=arr.length?arr.map(([n,w])=>`<div class="history-item"><span>${n}</span><b>${fmt(w)} kg</b></div>`).join(''):'Registre seu primeiro treino para gerar seu histórico.'}
+function renderProgress(){
+ renderMuscleReport();
+ const sel=document.getElementById('exerciseSelect');
+ const names=[...new Set(db.logs.flatMap(l=>(l.entries||[]).map(e=>e.name)))];
+ const old=sel.value;
+ sel.replaceChildren(new Option('Selecione exercício',''),...names.map(n=>new Option(String(n),String(n))));
+ if(names.includes(old))sel.value=old;
+ drawChart(sel.value);
+ const history=db.logs.length?db.logs.slice().reverse().slice(0,12).map(l=>`<div class="history-item"><div><strong>${esc(l.planName)}</strong><span class="muted">${new Date(l.date).toLocaleDateString('pt-BR')}</span></div><div style="text-align:right">${(l.entries||[]).length} exercícios<br><span class="muted">${(l.entries||[]).filter(e=>e.done).length} concluídos</span></div></div>`).join(''):'<div class="empty">Seus treinos finalizados aparecerão aqui.</div>';
+ document.getElementById('historyList').innerHTML=window.DOMPurify?DOMPurify.sanitize(history,{ALLOWED_TAGS:['div','strong','span','br'],ALLOWED_ATTR:['class','style']}):history;
+ const m=db.measures[db.measures.length-1];
+ if(m)['Weight','Waist','Chest','Arm','Thigh','Hip'].forEach(k=>{const el=document.getElementById('m'+k);if(m[k.toLowerCase()]!==undefined)el.value=m[k.toLowerCase()]});
+ renderPRs();renderGoal();renderPhotos();
+}
+function drawChart(name){let box=document.getElementById('loadChart');if(!name){box.className='empty';box.textContent='Selecione um exercício para visualizar a evolução da carga.';return}let pts=db.logs.flatMap(l=>(l.entries||[]).filter(e=>e.name===name&&Number(e.weight)>0).map(e=>({date:new Date(l.date).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),w:Number(e.weight)})));if(!pts.length){box.className='empty';box.textContent='Sem registros de carga para este exercício.';return}let max=Math.max(...pts.map(p=>p.w))*1.15,min=Math.min(0,...pts.map(p=>p.w));let coords=pts.map((p,i)=>`${20+i*(320/Math.max(1,pts.length-1))},${150-(p.w-min)/(max-min||1)*120}`).join(' ');box.className='';box.innerHTML=`<div style="display:flex;justify-content:space-between"><b>${esc(name)}</b><span class="tiny muted">Última: ${fmt(pts.at(-1).w)} kg</span></div><svg viewBox="0 0 360 180" class="chart" preserveAspectRatio="none"><line x1="15" y1="150" x2="345" y2="150" stroke="#34394b"/><polyline points="${coords}" fill="none" stroke="#ff3649" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((p,i)=>{let x=20+i*(320/Math.max(1,pts.length-1)),y=150-(p.w-min)/(max-min||1)*120;return `<circle cx="${x}" cy="${y}" r="4" fill="#55d6a0"/>`}).join('')}</svg><div style="display:flex;justify-content:space-between" class="tiny muted"><span>${pts[0].date}</span><span>${pts.at(-1).date}</span></div><div class="history-item"><span>Melhor carga registrada</span><b>${fmt(Math.max(...pts.map(p=>p.w)))} kg</b></div>`}
+function renderMiniProgress(){let best={};db.logs.forEach(l=>(l.entries||[]).forEach(e=>{if(e.weight>0)best[e.name]=Math.max(best[e.name]||0,e.weight)}));let arr=Object.entries(best).sort((a,b)=>b[1]-a[1]).slice(0,4);let markup=arr.length?arr.map(([n,w])=>`<div class="history-item"><span>${esc(n)}</span><b>${fmt(w)} kg</b></div>`).join(''):'Registre seu primeiro treino para gerar seu histórico.';document.getElementById('miniProgress').innerHTML=window.DOMPurify?DOMPurify.sanitize(markup,{ALLOWED_TAGS:['div','span','b'],ALLOWED_ATTR:['class']}):markup}
 function saveMeasures(){let m={date:new Date().toISOString(),weight:Number(mWeight.value)||db.profile.weight};['Waist','Chest','Arm','Thigh','Hip'].forEach(k=>{let v=document.getElementById('m'+k).value;if(v!=='')m[k.toLowerCase()]=Number(v)});db.measures.push(m);db.profile.weight=m.weight;save();notify('Medidas salvas!');renderHome();renderProgress()}
 function saveSettings(){db.profile.weight=Number(sWeight.value)||70;db.profile.height=Number(sHeight.value)||175;if(sStart.value)db.profile.start=sStart.value;save();notify('Perfil atualizado.');renderHome()}
 function backupFile(){let str=JSON.stringify(db,null,2);return new File([str],'guigym-backup-'+localISO()+'.json',{type:'application/json'})}
@@ -662,4 +699,5 @@ function init(){document.getElementById('sWeight').value=db.profile.weight;docum
 init();
 
 </script>
+<script src="./guigym-enhancements.js?v=1"></script>
 <script src="./guigym-music.js?v=13" defer></script></body></html>

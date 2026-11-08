@@ -19,6 +19,14 @@ Aplicativo pessoal de treino para hipertrofia, com identidade premium preta e ve
 ## Link público
 https://kurtzada.github.io/GuiGym/
 
+## Melhoria incremental — ícones, gráficos e segurança
+- Ícones Lucide nos atalhos e indicadores da tela inicial, com a mesma identidade preta e vermelha.
+- Chart.js na aba **Evolução**: carga por exercício, volume em séries, frequência semanal e peso corporal (quando houver medições).
+- DOMPurify nos relatórios HTML gerados, com nomes personalizados codificados como texto e seleção de exercícios criada sem interpolar HTML.
+- Bibliotecas servidas localmente de `vendor/` e disponíveis no cache offline do PWA; sem React, sem migração de dados e sem alterações no Spotify.
+
+Dependências incluídas: Chart.js 4.6.1 (MIT), Lucide 1.70.0 (ISC) e DOMPurify 3.4.17 (Apache-2.0/MPL-2.0). As licenças originais estão nos pacotes oficiais publicados pelos respectivos projetos.
+
 ## Dados e limites
 Os registros são guardados no armazenamento local do dispositivo/navegador (`forgeDB`). Não há sincronização automática entre aparelhos. Exporte backups regularmente. Algumas funções de narração/vibração dependem do aparelho.
 
