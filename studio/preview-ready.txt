@@ -1,0 +1,1 @@
+GuiGym Studio preview — React + TypeScript + Tailwind CSS + Vite + Lucide. Read-only preview. Main GuiGym app unchanged.
