@@ -1,4 +1,4 @@
-# GuiGym V11 — Academy
+# GuiGym V11.1 — Academy + Fila Corrigida
 
 Aplicativo pessoal de treino para hipertrofia, com identidade premium preta e vermelha.
 
@@ -23,3 +23,9 @@ https://kurtzada.github.io/GuiGym/
 Os registros são guardados no armazenamento local do dispositivo/navegador (`forgeDB`). Não há sincronização automática entre aparelhos. Exporte backups regularmente. Algumas funções de narração/vibração dependem do aparelho.
 
 A página publicada usa um HTML autocontido para evitar falhas de carregamento das imagens e scripts. O pacote ZIP da V11 contém também os arquivos modulares de desenvolvimento.
+
+## Correção V11.1 — próximo treino
+- Em **Treinos → Sua sequência ativa**, toque em **Aplicar minha sequência** para escolher Superiores completo → Pernas completas → primeiro treino do ciclo.
+- O botão **Ser próximo** marca manualmente o próximo treino sem exigir conclusão do anterior.
+- As setas continuam reorganizando os treinos independentemente de qual está definido como próximo.
+- A mudança não apaga histórico de cargas, séries, RIR, hidratação ou medidas. O ajuste de fila deve ser feito no mesmo navegador em que você treina.
