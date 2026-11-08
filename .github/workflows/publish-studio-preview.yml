@@ -1,0 +1,49 @@
+name: Publish GuiGym Studio Preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'modern/**'
+      - '.github/workflows/publish-studio-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: guigym-studio-build
+  cancel-in-progress: true
+
+jobs:
+  build-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install
+        run: npm install --no-audit --no-fund
+        working-directory: modern
+      - name: Typecheck and build
+        run: npm run build
+        working-directory: modern
+      - name: Publish into isolated studio folder
+        shell: bash
+        run: |
+          rm -rf studio
+          mkdir -p studio
+          cp -R modern/dist/. studio/
+          touch studio/.nojekyll
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A studio/
+          if ! git diff --cached --quiet; then
+            git commit -m "build: update isolated GuiGym Studio preview"
+            git push origin HEAD:main
+          fi
