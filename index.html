@@ -188,6 +188,7 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
 .gg-load-chart .history-item{margin-top:4px}
 @media(max-width:650px){.gg-chart-grid{grid-template-columns:1fr}.gg-chart-area{height:190px}.gg-load-chart .gg-chart-area{height:225px}}
 </style>
+<link rel="stylesheet" href="./elite-skin.css?v=1">
 <script src="./vendor/chart.umd.min.js"></script>
 <script src="./vendor/purify.min.js"></script>
 <script src="./vendor/lucide.min.js"></script>
@@ -198,7 +199,7 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
 
 <section id="home" class="view active">
  <div class="home-cover">
-  <div class="cover-art" aria-hidden="true"></div><div class="cover-ai" aria-hidden="true"></div>
+  <div class="cover-art" aria-hidden="true"></div><div class="cover-ai" aria-hidden="true"></div><div class="elite-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="cover-content">
    <div class="cover-topline"><span>SEU CENTRO DE PERFORMANCE</span><span class="cover-date" id="today"></span></div>
    <h2><span id="greetingWord">Bom dia</span>,<br><strong>Guilherme <span class="crown">♛</span></strong></h2>
@@ -243,6 +244,15 @@ body:has(#restDock:not([hidden])):has(#ggm-mini:not([hidden]):not(.ggm-collapsed
 <section id="training" class="view">
  <div class="hero training-hero-v9"><div><div class="eyebrow">GUI GYM · SEUS TREINOS</div><h2>Seus treinos</h2><p>Seu plano, do seu jeito. Crie, edite ou escolha uma divisão.</p></div><button class="btn primary" onclick="editWorkout(null)">＋ Criar novo treino</button></div>
  <div class="card v9-timer-card"><div class="v9-timer-row"><div><div class="eyebrow">TIMER ENTRE SÉRIES</div><h3>⏱ Cronômetro de descanso</h3><p>Começa ao marcar uma série. Ou escolha um tempo.</p></div><span class="version-chip">V11.1 · PRÉVIA</span></div><div class="v9-timer-quick"><button class="btn" onclick="startRest(90)">▶ 1:30</button><button class="btn" onclick="startRest(180)">▶ 3:00 (pernas)</button><button class="btn" onclick="startRest(240)">▶ 4:00</button></div></div>
+  <div class="elite-gallery" aria-label="Ilustrações de exemplos de exercícios">
+   <div class="elite-gallery-head"><h3>MOVIMENTO EM FOCO.</h3><span>ILUSTRAÇÕES DE IA / REFERÊNCIAS VISUAIS</span></div>
+   <div class="elite-gallery-grid">
+    <figure class="elite-gallery-figure"><img src="./elite-assets/images/supino-inclinado-elite.webp" loading="lazy" decoding="async" alt="Atleta realizando supino inclinado com halteres"><figcaption><small>01 / PEITO</small>SUPINO INCLINADO</figcaption></figure>
+    <figure class="elite-gallery-figure"><img src="./elite-assets/images/remada-elite.webp" loading="lazy" decoding="async" alt="Atleta realizando remada sentada"><figcaption><small>02 / COSTAS</small>REMADA</figcaption></figure>
+    <figure class="elite-gallery-figure"><img src="./elite-assets/images/desenvolvimento-elite.webp" loading="lazy" decoding="async" alt="Atleta fazendo desenvolvimento de ombros"><figcaption><small>03 / OMBROS</small>DESENVOLVIMENTO</figcaption></figure>
+    <figure class="elite-gallery-figure"><img src="./elite-assets/images/agachamento-elite.webp" loading="lazy" decoding="async" alt="Atleta fazendo agachamento com barra"><figcaption><small>04 / PERNAS</small>AGACHAMENTO</figcaption></figure>
+   </div>
+  </div>
   <div class="training-mode-tabs" role="group" aria-label="Biblioteca de treinos"><button id="trainingMineBtn" class="train-mode active" onclick="setTrainingTab('mine')">⚡ Meus treinos</button><button id="trainingIdeasBtn" class="train-mode" onclick="setTrainingTab('suggestions')">✦ Sugestões de divisão</button></div>
  <div id="trainingMinePanel">
   <div class="card training-queue-card"><div class="training-queue-head"><div><div class="eyebrow">SUA SEQUÊNCIA ATIVA</div><h3 id="routineTitle">Meu plano personalizado</h3><p class="tiny muted">Faltou? Seu próximo treino continua na fila.</p></div><span class="queue-chip" id="queueStepChip">1/4</span></div><div class="queue-setup"><div class="queue-setup-label">⚡ CORRIGIR MEU PRÓXIMO TREINO</div><p>Superiores Completo → Pernas Completas → volta ao início do ciclo.</p><button class="btn primary queue-setup-btn" onclick="applyUpperLegsCycle()">↻ Aplicar minha sequência</button><small>Altera somente a fila. Seu histórico, cargas e treinos salvos ficam intactos.</small></div><div id="queuePreview" class="queue-preview" aria-live="polite"></div><div id="trainingQueueEditor"></div></div>
@@ -700,4 +710,4 @@ init();
 
 </script>
 <script src="./guigym-enhancements.js?v=1"></script>
-<script src="./guigym-music.js?v=13" defer></script></body></html>
+<script src="./guigym-music.js?v=13" defer></script><script src="./elite-visual.js?v=1" defer></script></body></html>
