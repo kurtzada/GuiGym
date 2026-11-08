@@ -61,3 +61,16 @@
 .original-nav-btn.active{background:#361921;color:#ffc2cb}
 .original-nav-btn svg{width:22px;height:22px}
 @media(max-width:650px){.home-cover{margin-top:14px;min-height:400px;border-radius:23px}.cover-content{padding:21px 17px 15px;min-height:400px}.cover-art{width:69%;right:-19%;top:-8px;height:77%;background-position:center top}.cover-ai{width:62%;opacity:.54}.home-cover h2{font-size:clamp(35px,8vw,46px)}.cover-focus{gap:8px}.cover-focus>div{padding:11px 7px 11px 35px}.focus-icon{left:8px;top:11px;font-size:21px}.cover-focus small{font-size:8px}.cover-focus b{font-size:12px}.cover-week{margin-top:15px}.weekly{gap:4px}.weekly .wday{font-size:10px;padding:9px 0}.home-next{gap:9px;padding:15px 12px}.next-symbol{font-size:32px}.next-ai-image{opacity:.25}.legacy-metric{padding:13px 10px}.legacy-metric strong{font-size:20px}.original-quick-grid{gap:8px}.original-quick{padding:12px 9px}.original-quick strong{font-size:10px}.original-quick svg{width:22px;height:22px}.brand-v11 small{font-size:8px}.brand-v11-actions a{padding:9px 8px;font-size:10px}}
+
+/* Restore the original centered app rhythm (no desktop sidebar or six-tab wrap). */
+.app-shell{background:radial-gradient(circle at 83% -14%,#4d101c 0,transparent 37%),#090a0d;color:#f6f6f7}
+.main-content{width:100%;max-width:1120px!important;margin:0 auto!important;padding:0 20px 115px!important}
+.surface,.stat-card{border:1px solid #2a2b32;border-radius:18px;background:linear-gradient(145deg,#141519,#141722);box-shadow:0 12px 35px #0002}
+.section-title h3{font-size:17px}
+.progress-track{height:7px;background:#292e40}
+.preview-tag{background:#2d1720;color:#ffafbb;border:1px solid #6b2636}
+.btn-primary{background:linear-gradient(135deg,#fc3449,#b20b2c)}
+.plan-choice.active{border-color:#ff3649;background:#29171c}
+.exercise-row{border-color:#2a2b32}
+.original-nav{isolation:isolate}
+@media(max-width:760px){.main-content{padding:0 14px 117px!important}.brand-v11-top{padding:20px 0 7px}}
