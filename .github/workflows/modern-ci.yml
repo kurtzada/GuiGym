@@ -1,0 +1,33 @@
+name: Modern GuiGym — React CI
+
+on:
+  push:
+    branches: [feature/react-vite-tailwind]
+    paths:
+      - 'modern/**'
+      - '.github/workflows/modern-ci.yml'
+  pull_request:
+    paths:
+      - 'modern/**'
+      - '.github/workflows/modern-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: modern
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Check TypeScript
+        run: npm run typecheck
+      - name: Build Vite production bundle
+        run: npm run build
