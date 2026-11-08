@@ -1,0 +1,17 @@
+{
+  "name": "GuiGym — Evolução & Performance",
+  "short_name": "GuiGym",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090a0d",
+  "theme_color": "#0c0c10",
+  "description": "GuiGym: treinos, cargas, metas, recordes e constância para hipertrofia.",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
