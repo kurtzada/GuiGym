@@ -4,7 +4,7 @@ import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, CalendarDays, Chec
 import { Navigation } from './components/Navigation'
 import { StatCard } from './components/StatCard'
 import { exportOriginalBackup, formatDate, formatNumber, getLastExerciseWeight, getNextPlan, localDay, parseLegacy, readLegacy, todayWater } from './legacy'
-import type { LegacyDB, Plan, View } from './models'
+import type { LegacyDB, View } from './models'
 
 const today = new Date()
 const dateLabel = today.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })
