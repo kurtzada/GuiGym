@@ -1,8 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
-import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, CircleAlert, ClipboardList, CloudOff, Droplets, Dumbbell, FileUp, Flame, Headphones, HeartPulse, ListFilter, LockKeyhole, Medal, Music2, RotateCw, ShieldCheck, TrendingUp, Weight } from 'lucide-react'
+import { Activity, ArrowDownToLine, ArrowRight, ArrowUpRight, CalendarDays, CheckCircle2, ChevronRight, CircleAlert, ClipboardList, CloudOff, Droplets, Dumbbell, FileUp, Headphones, HeartPulse, ListFilter, LockKeyhole, Medal, Music2, RotateCw, ShieldCheck, TrendingUp, Weight } from 'lucide-react'
 import { Navigation } from './components/Navigation'
 import { StatCard } from './components/StatCard'
+import { nextTrainingArtwork } from './originalArtwork'
 import { exportOriginalBackup, formatDate, formatNumber, getLastExerciseWeight, getNextPlan, localDay, parseLegacy, readLegacy, todayWater } from './legacy'
 import type { LegacyDB, View } from './models'
 
@@ -74,50 +75,80 @@ function App() {
     event.target.value = ''
   }
   return <div className="app-shell">
-    <Navigation selected={view} onSelect={navigate} />
     <main className="main-content">
-      <div className="topbar">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-zinc-400"><span className="inline-block size-2 rounded-full bg-rose-500 shadow-[0_0_12px_#ff3159]" /> GUIGYM <span className="text-zinc-600">/</span> STUDIO</div>
-        <div className="flex items-center gap-2"><span className="preview-tag"><LockKeyhole size={12} /> Prévia segura</span><a href={fullApp} className="topbar-original" title="Abrir versão atual">App atual <ArrowUpRight size={14} /></a></div>
-      </div>
-      <div className="page-heading">
-        <div className="eyebrow">{heading[view].eyebrow}</div>
-        <h1>{heading[view].title}</h1>
-        <p>{heading[view].subtitle}</p>
-      </div>
-      {source !== 'none' && <div className="data-banner"><ShieldCheck size={15} /><span>{source === 'backup' ? 'Backup carregado só nesta prévia. Nada foi salvo no navegador.' : 'Dados encontrados neste navegador. Esta prévia não modifica seus registros.'}</span></div>}
-      {!db && view !== 'settings' ? <EmptyData onNavigate={() => navigate('settings')} /> : null}
-
-      {db && view === 'home' && <>
-        <section className="hero-panel">
-          <div className="hero-glow" />
-          <div className="relative z-10 max-w-[460px]">
-            <div className="hero-pill"><Flame size={14} /> CONSTRUA SUA MELHOR VERSÃO</div>
-            <h2>O próximo nível <em>começa hoje.</em></h2>
-            <p>{dateLabel}. Seu histórico está pronto para acompanhar sua próxima evolução.</p>
-            <button className="btn-primary" onClick={() => navigate('training')}>Ver meu treino <ArrowRight size={17} /></button>
+      <header className="brand-v11-top">
+        <div className="brand-v11">
+          <div className="brand-v11-logo">
+            <svg viewBox="0 0 100 100" width="32" height="32" aria-label="Logo GuiGym"><path d="M77 21A37 37 0 1 0 78 70V49H51" fill="none" stroke="currentColor" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round"/><path d="M70 13L59 37h16L64 62 93 29H76L85 13" fill="currentColor"/></svg>
           </div>
-          <div className="hero-graphic" aria-hidden="true"><Dumbbell size={154} strokeWidth={1.1} /></div>
-        </section>
-        <div className="stat-grid">
-          <StatCard title="Treinos concluídos" value={formatNumber(completed)} subtitle="Seu histórico acumulado" icon={<Dumbbell size={20} />} />
-          <StatCard title="Últimos 30 dias" value={formatNumber(last30)} subtitle="Sessões registradas" icon={<TrendingUp size={20} />} tone="blue" />
-          <StatCard title="Peso registrado" value={(db.profile?.weight ? formatNumber(db.profile.weight) : '—') + ' kg'} subtitle="Atualizado no perfil" icon={<Weight size={20} />} tone="green" />
+          <div><h1>GuiGym</h1><small>EVOLUÇÃO &amp; PERFORMANCE</small></div>
         </div>
+        <div className="brand-v11-actions">
+          <span className="preview-tag"><LockKeyhole size={12} /> REACT · PRÉVIA</span>
+          <a href={fullApp} title="Abrir o GuiGym completo">Original <ArrowUpRight size={13} className="inline" /></a>
+        </div>
+      </header>
+      {view !== 'home' && <div className="legacy-hero">
+        <div>
+          <div className="legacy-eyebrow">{heading[view].eyebrow}</div>
+          <h2>{heading[view].title}</h2>
+          <p>{heading[view].subtitle}</p>
+        </div>
+      </div>}
+      {source !== 'none' && <div className="data-banner"><ShieldCheck size={15} /><span>{source === 'backup' ? 'Backup lido nesta prévia, sem modificar seus dados.' : 'Seus dados foram encontrados neste navegador e não serão alterados.'}</span></div>}
+      {!db && view !== 'settings' && view !== 'home' ? <EmptyData onNavigate={() => navigate('settings')} /> : null}
+
+      {view === 'home' && <>
+        <section className="home-cover">
+          <div className="cover-art" aria-hidden="true" /><div className="cover-ai" aria-hidden="true" />
+          <div className="cover-content">
+            <div className="cover-topline"><span>SEU CENTRO DE PERFORMANCE</span><span className="cover-date">{dateLabel}</span></div>
+            <h2>{new Date().getHours() < 12 ? 'Bom dia' : new Date().getHours() < 18 ? 'Boa tarde' : 'Boa noite'},<br /><strong>Guilherme <span className="crown">♛</span></strong></h2>
+            <div className="cover-focus">
+              <div><span className="focus-icon">◎</span><small>FOCO ATUAL</small><b>Hipertrofia</b></div>
+              <div><span className="focus-icon">▦</span><small>PLANO ATUAL</small><b>{db?.plans?.length ? 'Meu plano' : 'GuiGym'}</b></div>
+            </div>
+            <div className="cover-week">
+              <div className="weekly">{historyKeys.map((day, index) => <div className={'wday ' + ((db?.logs ?? []).some(log => log.date?.slice(0, 10) === day.key && log.completed !== false) ? 'hit' : '')} key={day.key}>
+                {day.label}<small>{index === 6 ? 'Hoje' : (db?.logs ?? []).some(log => log.date?.slice(0, 10) === day.key) ? '✓' : '·'}</small>
+              </div>)}</div>
+              <p className="mt-2 text-[10px] text-zinc-400">Seus últimos sete dias de evolução</p>
+            </div>
+          </div>
+        </section>
+        <section className="home-next">
+          <img className="next-ai-image" src={nextTrainingArtwork} alt="" loading="lazy" />
+          <div className="next-symbol" aria-hidden="true">ϟ</div>
+          <div className="next-copy">
+            <span className="legacy-eyebrow">{next ? 'PRÓXIMO NA FILA' : 'PRÓXIMA SESSÃO'}</span>
+            <h2>{next?.name || 'Sua rotina de treino'}</h2>
+            <p>{next?.focus || (next?.tags ?? []).join(' · ') || 'Importe seu backup para ver o seu plano personalizado.'}</p>
+          </div>
+          <button className="next-launch" onClick={() => { if(next) setSelectedPlanId(next.id); navigate(next ? 'training' : 'settings') }} aria-label="Abrir próximo treino"><ArrowRight size={21}/></button>
+        </section>
+        {!db && <EmptyData onNavigate={() => navigate('settings')} />}
+        <div className="legacy-metrics">
+          <div className="legacy-metric"><small>PESO ATUAL</small><strong>{db?.profile?.weight ? formatNumber(db.profile.weight) + ' kg' : '—'}</strong><span>Corporal</span></div>
+          <div className="legacy-metric"><small>SEQUÊNCIA</small><strong>{db ? formatNumber(completed) : '—'}</strong><span>Sessões registradas</span></div>
+          <div className="legacy-metric"><small>PLANO</small><strong>{db ? formatNumber(plans.length) : '—'}</strong><span>Treinos na rotina</span></div>
+        </div>
+        <div className="legacy-head"><h3>Atalhos</h3><span>ACESSO RÁPIDO</span></div>
+        <div className="original-quick-grid">
+          <button className="original-quick" onClick={() => navigate('water')}><Droplets/><strong>Hidratação</strong><small>Meta diária</small></button>
+          <button className="original-quick" onClick={() => navigate('training')}><Dumbbell/><strong>Treinos</strong><small>Minha divisão</small></button>
+          <button className="original-quick" onClick={() => navigate('progress')}><Medal/><strong>Recordes</strong><small>Cargas e evolução</small></button>
+          <button className="original-quick" onClick={() => navigate('settings')}><Headphones/><strong>GuiGym Music</strong><small>Spotify no original</small></button>
+        </div>
+        <div className="legacy-head"><h3>Hidratação de hoje</h3><button className="text-xs font-bold text-rose-300" onClick={() => navigate('water')}>Ver diário →</button></div>
         <div className="two-columns">
           <Surface>
-            <TitleRow title="Próxima sessão" caption="Sua fila de treinos" icon={<Dumbbell size={20} />} />
-            {next ? <div className="workout-feature"><div className="text-[10px] font-bold uppercase tracking-[.2em] text-rose-300">PRÓXIMO NA FILA</div><h4>{next.name}</h4><p>{next.focus || (next.tags ?? []).join(' · ') || 'Seu treino personalizado'}</p><div className="mt-5 flex items-center justify-between"><span className="mini-chip">{next.exercises?.length ?? 0} exercícios</span><button onClick={() => { setSelectedPlanId(next.id); navigate('training') }} className="text-sm font-bold text-rose-300">Ver detalhes <ArrowRight className="inline" size={15} /></button></div></div> : <p className="mt-6 text-sm text-zinc-400">Nenhum plano registrado.</p>}
-          </Surface>
-          <Surface>
-            <TitleRow title="Hidratação de hoje" caption="Sua meta diária" icon={<Droplets size={20} />} />
-            <div className="mt-6 flex items-end gap-2"><strong className="text-4xl font-black">{formatNumber(water)} <span className="text-lg text-zinc-500">ml</span></strong><span className="mb-1 ml-auto text-xs text-zinc-400">/ {formatNumber(waterGoal)} ml</span></div>
+            <TitleRow title="Água registrada" caption="Sua meta diária" icon={<Droplets size={20} />} />
+            <div className="mt-6 flex items-end gap-2"><strong className="text-4xl font-black">{db ? formatNumber(water) : '—'} <span className="text-lg text-zinc-500">ml</span></strong><span className="mb-1 ml-auto text-xs text-zinc-400">/ {formatNumber(waterGoal)} ml</span></div>
             <div className="progress-track mt-5"><div style={{ width: Math.min(100, water / waterGoal * 100) + '%' }} /></div>
-            <div className="mt-4 text-xs text-zinc-400">{water >= waterGoal ? 'Meta atingida. Excelente consistência!' : formatNumber(Math.max(0, waterGoal - water)) + ' ml para atingir sua meta.'}</div>
-            <button className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-rose-300" onClick={() => navigate('water')}>Ver hidratação <ArrowRight size={15} /></button>
+            <div className="mt-4 text-xs text-zinc-400">{db ? water >= waterGoal ? 'Meta atingida. Excelente consistência!' : formatNumber(Math.max(0, waterGoal - water)) + ' ml para atingir sua meta.' : 'Importe um backup para visualizar seus registros.'}</div>
           </Surface>
+          <Surface><TitleRow title="Consistência da semana" caption="Treinos registrados em sete dias" icon={<Activity size={20} />} /><ActivityBars db={db ?? {logs:[],water:[],waterGoal:2500}} /></Surface>
         </div>
-        <Surface><TitleRow title="Consistência da semana" caption="Treinos registrados nos últimos sete dias" icon={<Activity size={20} />} /><ActivityBars db={db} /></Surface>
       </>}
 
       {db && view === 'training' && <div className="two-columns training-columns">
@@ -207,6 +238,7 @@ function App() {
       </>}
       <footer className="mt-10 border-t border-white/8 py-6 text-xs text-zinc-600">© GuiGym Studio · React + TypeScript · Prévia independente, sem alteração de dados.</footer>
     </main>
+    <Navigation selected={view} onSelect={navigate} />
   </div>
 }
 export default App
